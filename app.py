@@ -3,20 +3,23 @@
 import streamlit as st
 from google.cloud import vision
 import gspread
-from datetime import datetime
 from google.oauth2 import service_account
+from datetime import datetime
 
-# === CREDENTIALS SETUP ===
-creds = service_account.Credentials.from_service_account_info(st.secrets["google_service_account"])
+# === CREDENTIALS ===
+creds = service_account.Credentials.from_service_account_info(st.secrets["service_account"])
+
+st.write("✅ Auth loaded successfully!")
+
+# === CLIENTS ===
 vision_client = vision.ImageAnnotatorClient(credentials=creds)
 gspread_client = gspread.authorize(creds)
 
-#Checks
-st.write("✅ Auth loaded successfully!")
-#st.write(f"✅ Service Account: {sheets_creds.service_account_email}")
-
-# Connect to your Google Sheet by key
-sheet = gspread_client.open_by_key("1e0nRervgGaQrB5YK94J24R2vIVKY_5wsX3V6Vt_ITDY").sheet1
+try:
+    sheet = gspread_client.open_by_key("1e0nRervgGaQrB5YK94J24R2vIVKY_5wsX3V6Vt_ITDY").sheet1
+    st.write("✅ Google Sheet connected successfully!")
+except Exception as e:
+    st.error(f"❌ Error connecting to Google Sheets: {e}")
 
 # === Functions ===
 def extract_text_from_image(image_bytes):
