@@ -122,8 +122,11 @@ def main():
                 st.success(f"✅ Ingredients: {ingredients or 'Not Found'}")
 
                 if st.button("Add to Google Sheets"):
-                    add_to_google_sheet(sample_id, ingredients)
-                    st.balloons()
+                    if not sample_id or sample_id.strip().lower() == "not found":
+                        st.error("❗ Please make sure the **Sample ID** is clearly visible and resubmit the image.")
+                    else:
+                        add_to_google_sheet(sample_id, ingredients)
+
 
                 if st.button("Update Existing Row"):
                     update_existing_row(sample_id, ingredients)
