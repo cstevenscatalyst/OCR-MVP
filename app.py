@@ -5,6 +5,13 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
+# === CREDENTIALS SETUP ===
+vision_creds = service_account.Credentials.from_service_account_info(st.secrets["google_ocr"])
+vision_client = vision.ImageAnnotatorClient(credentials=vision_creds)
+
+sheets_creds = service_account.Credentials.from_service_account_info(st.secrets["google_sheets"])
+gspread_client = gspread.authorize(sheets_creds)
+
 # === CONFIG ===
 GOOGLE_OCR_KEY = "main-json-key.json"
 GOOGLE_SHEETS_KEY = "google-sheets-key.json"
