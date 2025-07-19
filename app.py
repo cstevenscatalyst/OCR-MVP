@@ -95,12 +95,14 @@ def main():
     - Ensure the **entire ingredient block** is clearly visible and in focus.
     - Write the **Sample ID** on a sticky note placed next to the ingredient list.
     - Upload the image using the uploader below.
-    - You can edit the extracted text before saving to the database.
+    - You can edit the extracted text before saving to the database. 
+    - ### 🔒 Internal Tool — For Authorized Team Use Only  
+    - Please ensure your photos follow the guidelines below.
     
     ---
     """)
 
-    st.image("data/sample_image_marked.png", caption="✅ Example of a good image", width=300)
+    st.image("data/sample_image_marked.png", caption="✅ Example of a good image", width=200)
     #st.image("sample_good_image_2.png", caption="✅ Another good example", use_column_width=True)
 
     uploaded_file = st.file_uploader("Upload product image (JPG, PNG)", type=["jpg", "jpeg", "png"])
