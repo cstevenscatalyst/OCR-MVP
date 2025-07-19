@@ -2,8 +2,8 @@ import streamlit as st
 from google.cloud import vision
 import io
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+from google.oauth2 import service_account
 
 # === CREDENTIALS SETUP ===
 vision_creds = service_account.Credentials.from_service_account_info(st.secrets["google_ocr"])
@@ -12,21 +12,7 @@ vision_client = vision.ImageAnnotatorClient(credentials=vision_creds)
 sheets_creds = service_account.Credentials.from_service_account_info(st.secrets["google_sheets"])
 gspread_client = gspread.authorize(sheets_creds)
 
-# === CONFIG ===
-GOOGLE_OCR_KEY = "main-json-key.json"
-GOOGLE_SHEETS_KEY = "google-sheets-key.json"
-SHEET_NAME = "OCR Ingredient Upload"
-
-# === Clients ===
-vision_client = vision.ImageAnnotatorClient.from_service_account_file(GOOGLE_OCR_KEY)
-
-def get_sheets_client():
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_SHEETS_KEY, scope)
-    return gspread.authorize(creds)
-
-sheets_client = get_sheets_client()
-sheet = sheets_client.open(SHEET_NAME).sheet1
+sheet = gspread_client.open(SHEET_NAME).sheet1
 
 # === Functions ===
 def extract_text_from_image(image_bytes):
