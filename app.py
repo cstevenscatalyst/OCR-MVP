@@ -13,7 +13,7 @@ gspread_client = gspread.authorize(creds)
 
 #Checks
 st.write("✅ Auth loaded successfully!")
-st.write(f"✅ Service Account: {sheets_creds.service_account_email}")
+#st.write(f"✅ Service Account: {sheets_creds.service_account_email}")
 
 # Connect to your Google Sheet by key
 sheet = gspread_client.open_by_key("1e0nRervgGaQrB5YK94J24R2vIVKY_5wsX3V6Vt_ITDY").sheet1
