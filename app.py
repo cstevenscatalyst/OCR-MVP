@@ -12,6 +12,8 @@ vision_client = vision.ImageAnnotatorClient(credentials=vision_creds)
 sheets_creds = service_account.Credentials.from_service_account_info(st.secrets["google_sheets"])
 gspread_client = gspread.authorize(sheets_creds)
 
+st.write("✅ Auth loaded successfully!")
+
 sheet = gspread_client.open_by_key("1e0nRervgGaQrB5YK94J24R2vIVKY_5wsX3V6Vt_ITDY").sheet1
 
 # === Functions ===
