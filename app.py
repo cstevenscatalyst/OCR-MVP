@@ -96,8 +96,8 @@ def main():
     - Write the **Sample ID** on a sticky note placed next to the ingredient list.
     - Upload the image using the uploader below.
     - You can edit the extracted text before saving to the database. 
-    - ### 🔒 Internal Tool — For Authorized Team Use Only  
-    - Please ensure your photos follow the guidelines below.
+    
+    ### 🔒 Internal Tool — For Authorized Team Use Only  
     
     ---
     """)
