@@ -6,8 +6,15 @@ import gspread
 from google.oauth2 import service_account
 from datetime import datetime
 
-# === CREDENTIALS ===
-creds = service_account.Credentials.from_service_account_info(st.secrets["service_account"])
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
+creds = service_account.Credentials.from_service_account_info(
+    st.secrets["service_account"],
+    scopes=SCOPES
+)
 
 st.write("✅ Auth loaded successfully!")
 
