@@ -8,7 +8,8 @@ from datetime import datetime
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/cloud-platform"
 ]
 
 creds = service_account.Credentials.from_service_account_info(
