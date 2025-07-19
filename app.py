@@ -123,6 +123,7 @@ def main():
 
                 if st.button("Add to Google Sheets"):
                     add_to_google_sheet(sample_id, ingredients)
+                    st.balloons()
 
                 if st.button("Update Existing Row"):
                     update_existing_row(sample_id, ingredients)
