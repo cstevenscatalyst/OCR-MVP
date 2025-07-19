@@ -1,19 +1,21 @@
+#OCR MVP by Cole Stevens
+
 import streamlit as st
 from google.cloud import vision
-import io
 import gspread
 from datetime import datetime
 from google.oauth2 import service_account
 
 # === CREDENTIALS SETUP ===
-vision_creds = service_account.Credentials.from_service_account_info(st.secrets["google_ocr"])
-vision_client = vision.ImageAnnotatorClient(credentials=vision_creds)
+creds = service_account.Credentials.from_service_account_info(st.secrets["google_service_account"])
+vision_client = vision.ImageAnnotatorClient(credentials=creds)
+gspread_client = gspread.authorize(creds)
 
-sheets_creds = service_account.Credentials.from_service_account_info(st.secrets["google_sheets"])
-gspread_client = gspread.authorize(sheets_creds)
-
+#Checks
 st.write("✅ Auth loaded successfully!")
+st.write(f"✅ Service Account: {sheets_creds.service_account_email}")
 
+# Connect to your Google Sheet by key
 sheet = gspread_client.open_by_key("1e0nRervgGaQrB5YK94J24R2vIVKY_5wsX3V6Vt_ITDY").sheet1
 
 # === Functions ===
