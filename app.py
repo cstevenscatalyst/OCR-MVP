@@ -12,8 +12,7 @@ vision_client = vision.ImageAnnotatorClient(credentials=vision_creds)
 sheets_creds = service_account.Credentials.from_service_account_info(st.secrets["google_sheets"])
 gspread_client = gspread.authorize(sheets_creds)
 
-SHEET_NAME = "OCR Ingredient Upload"
-sheet = gspread_client.open(SHEET_NAME).sheet1
+sheet = gspread_client.open("OCR Ingredient Upload").sheet1
 
 # === Functions ===
 def extract_text_from_image(image_bytes):
