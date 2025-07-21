@@ -43,8 +43,11 @@ def parse_ocr_text(ocr_text):
     capture = False
     lines = ocr_text.split('\n')
 
+    stop_triggers = ['contains', '©', '™']
+
     for idx, line in enumerate(lines):
         line_lower = line.lower()
+
         if 'sample id' in line_lower:
             if ':' in line:
                 sample_id = line.split(':', 1)[-1].strip()
@@ -59,7 +62,7 @@ def parse_ocr_text(ocr_text):
             continue
 
         if capture:
-            if not line.strip() or line_lower.startswith('contains'):
+            if not line.strip() or any(trigger in line_lower for trigger in stop_triggers):
                 capture = False
             else:
                 ingredients.append(line.strip())
