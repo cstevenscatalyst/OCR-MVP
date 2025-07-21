@@ -105,10 +105,15 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image("data/english_example_1.jpg", caption="✅ Example of a good image", use_container_width=True)
-
+        st.image("https://ocr-mvp-iwd3vfscgqlpnthmgncjfa.streamlit.app/static/OCR Sample Image 1.jpg", 
+         caption="✅ Example of a good image", 
+         width=200)
+        
     with col2:
-        st.image("data/english_example_2.jpg", caption="✅ Another good example", use_container_width=True)
+        st.image("https://ocr-mvp-iwd3vfscgqlpnthmgncjfa.streamlit.app/static/OCR Sample Image 2.jpg", 
+         caption="✅ Example of a good image", 
+         width=200)
+
 
     uploaded_file = st.file_uploader("Upload product image (JPG, PNG)", type=["jpg", "jpeg", "png"])
 
