@@ -102,8 +102,8 @@ def main():
     ---
     """)
 
-    st.image("data/sample_image_marked.png", caption="✅ Example of a good image", width=200)
-    #st.image("sample_good_image_2.png", caption="✅ Another good example", use_column_width=True)
+    st.image("data/OCR Sample Image 3.JPG", caption="✅ Example of a good image", width=200)
+    st.image("data/OCR Sample Image 2.JPG", caption="✅ Another good example", width=200)
 
     uploaded_file = st.file_uploader("Upload product image (JPG, PNG)", type=["jpg", "jpeg", "png"])
 
