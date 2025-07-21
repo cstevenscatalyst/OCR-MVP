@@ -43,7 +43,7 @@ def parse_ocr_text(ocr_text):
     capture = False
     lines = ocr_text.split('\n')
 
-    stop_triggers = ['contains', '©', '™']
+    stop_triggers = ['contains', '©', '™', '/', 'TM']
 
     for idx, line in enumerate(lines):
         line_lower = line.lower()
