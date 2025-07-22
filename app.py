@@ -60,7 +60,7 @@ def parse_ocr_text(ocr_text):
     capture = False
     lines = ocr_text.split('\n')
 
-    stop_triggers = ['contains', '©', '™', '/', 'TM']
+    stop_triggers = ['contains', 'allergen', 'distributed by', 'may contain', 'certified organic', '©', '™', '/', 'tm']
 
     for idx, line in enumerate(lines):
         line_lower = line.lower()
@@ -74,14 +74,16 @@ def parse_ocr_text(ocr_text):
                     sample_id = next_line
 
         if line_lower.startswith('ingredients'):
-            ingredients.append(line.split(':', 1)[-1].strip())
+            ingredients_part = line.split(':', 1)[-1].strip()
+            if ingredients_part:
+                ingredients.append(ingredients_part)
             capture = True
             continue
 
         if capture:
-            if not line.strip() or any(trigger in line_lower for trigger in stop_triggers):
+            if any(trigger in line_lower for trigger in stop_triggers):
                 capture = False
-            else:
+            elif line.strip():  # Only append non-empty lines
                 ingredients.append(line.strip())
 
     return sample_id, ' '.join(ingredients).strip()
