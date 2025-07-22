@@ -108,6 +108,15 @@ def update_existing_row(sample_id, ingredients):
         st.success("✅ Existing row updated successfully.")
     else:
         st.warning("⚠️ Sample ID not found. Please use 'Add to Google Sheets' instead.")
+        
+def delete_row_by_sample_id(sample_id):
+    existing_ids = sheet.col_values(2)  # Sample ID column (B)
+    if sample_id in existing_ids:
+        row_index = existing_ids.index(sample_id) + 1  # +1 for 1-based index
+        sheet.delete_rows(row_index)
+        st.success(f"✅ Row with Sample ID '{sample_id}' deleted successfully.")
+    else:
+        st.warning("⚠️ Sample ID not found. Nothing deleted.")
 
 # === Streamlit App ===
 def main():
@@ -158,6 +167,15 @@ def main():
 
                 if st.button("Update Existing Row"):
                     update_existing_row(sample_id, ingredients)
+                    
+                st.markdown("---")
+                delete_input = st.text_input("🔴 Enter Sample ID to Delete Row:")
+                if st.button("Delete Row"):
+                    if delete_input:
+                        delete_row_by_sample_id(delete_input.strip())
+                    else:
+                        st.error("❗ Please enter a Sample ID to delete.")
+
 
             else:
                 st.warning("⚠️ No text detected in image.")
