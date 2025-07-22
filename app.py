@@ -83,8 +83,11 @@ def parse_ocr_text(ocr_text):
         if capture:
             if any(trigger in line_lower for trigger in stop_triggers):
                 capture = False
-            elif line.strip():  # Only append non-empty lines
+            elif line.strip():
                 ingredients.append(line.strip())
+            else:
+                # If blank line, keep capturing?
+                continue
 
     return sample_id, ' '.join(ingredients).strip()
 
