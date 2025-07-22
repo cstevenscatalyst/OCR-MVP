@@ -62,6 +62,8 @@ def parse_ocr_text(ocr_text):
 
     stop_triggers = ['contains', 'allergen', 'distributed by', 'may contain', 'certified organic', '©', '™', '/', 'tm']
 
+    buffer = []
+
     for idx, line in enumerate(lines):
         line_lower = line.lower()
 
@@ -76,20 +78,25 @@ def parse_ocr_text(ocr_text):
         if line_lower.startswith('ingredients'):
             ingredients_part = line.split(':', 1)[-1].strip()
             if ingredients_part:
-                ingredients.append(ingredients_part)
+                buffer.append(ingredients_part)
             capture = True
             continue
 
         if capture:
             if any(trigger in line_lower for trigger in stop_triggers):
                 capture = False
-            elif line.strip():
-                ingredients.append(line.strip())
-            else:
-                # If blank line, keep capturing?
+                continue
+            elif line.strip():  # Non-empty line
+                buffer.append(line.strip())
+            else:  # Empty line — treat as potential break but do nothing
                 continue
 
-    return sample_id, ' '.join(ingredients).strip()
+    if buffer:
+        ingredients = ' '.join(buffer).replace('  ', ' ')
+    else:
+        ingredients = None
+
+    return sample_id, ingredients
 
 # === Google Sheets Integration Functions ===
 def add_to_google_sheet(sample_id, ingredients):
