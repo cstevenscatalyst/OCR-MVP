@@ -37,6 +37,23 @@ def extract_text_from_image(image_bytes):
         raise Exception(f"API Error: {response.error.message}")
     return response.text_annotations[0].description if response.text_annotations else None
 
+def check_password():
+    def password_entered():
+        if st.session_state["password"] == st.secrets["app_password"]:
+            st.session_state["password_correct"] = True
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        st.text_input("Enter Password", type="password", on_change=password_entered, key="password")
+        return False
+    elif not st.session_state["password_correct"]:
+        st.text_input("Enter Password", type="password", on_change=password_entered, key="password")
+        st.error("😬 Incorrect password")
+        return False
+    else:
+        return True
+
 def parse_ocr_text(ocr_text):
     sample_id = None
     ingredients = []
@@ -145,4 +162,5 @@ def main():
             st.error(f"❌ Error: {e}")
 
 if __name__ == "__main__":
-    main()
+    if check_password():
+        main()
