@@ -143,7 +143,7 @@ def main():
             ocr_text = extract_text_from_image(image_bytes)
             if ocr_text:
                 # Editable text area for OCR text
-                edited_text = st.text_area("🔹 Raw OCR Text (editable):", ocr_text, height=200)
+                edited_text = st.text_area("🔹 Raw OCR Text (editable):", ocr_text, height=400)
 
                 # Parse the edited text (not the original)
                 sample_id, ingredients = parse_ocr_text(edited_text)
