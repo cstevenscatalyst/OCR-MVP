@@ -1,0 +1,19 @@
+# Google service account keys
+main-json-key.json
+google-sheets-key.json
+*.pem
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
